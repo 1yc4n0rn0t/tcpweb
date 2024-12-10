@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Capture - Hacker Mode</title>
+
+    <!-- Google Font for Hacker Font -->
+    <link href="https://fonts.googleapis.com/css2?family=OCR+A+Extended&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 for modern UI components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'OCR A Extended', monospace;
+        }
+
+        h1, h3 {
+            color: #00FF00;
+        }
+
+        .output {
+            background-color: #1e1e1e;
+            border-radius: 5px;
+            padding: 15px;
+            height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 30px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-body {
+            background-color: #2d2d2d;
+            color: #fff;
+        }
+
+        .btn {
+            background-color: #00FF00;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Live Network Capture</h1>
+        <p class="text-center">Monitoring traffic on interface: <strong>{{ interface_name }}</strong></p>
+
+        <div class="text-center">
+            <button id="start-capture" class="btn btn-success">Start Capture</button>
+            <button id="stop-capture" class="btn btn-danger" disabled>Stop Capture</button>
+        </div>
+
+        <h3>Captured Network Traffic:</h3>
+        <div id="output" class="output"></div>
+
+        <h3>Captured Images:</h3>
+        <div id="image-gallery" class="image-gallery"></div>
+
+        <br>
+        <a id="download-pcap" class="btn btn-primary" href="#" download>Download PCAP</a>
+    </div>
+
+    <!-- JavaScript to manage capture actions -->
+    <script>
+        document.getElementById("start-capture").onclick = function() {
+            fetch('/start_capture')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById("start-capture").disabled = true;
+                    document.getElementById("stop-capture").disabled = false;
+                })
+                .catch(error => console.error('Error starting capture:', error));
+        };
+
+        document.getElementById("stop-capture").onclick = function() {
+            fetch('/stop_capture')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById("start-capture").disabled = false;
+                    document.getElementById("stop-capture").disabled = true;
+                })
+                .catch(error => console.error('Error stopping capture:', error));
+        };
+
+        document.getElementById("download-pcap").onclick = function() {
+            window.location.href = '/download_pcap';
+        };
+
+        // Function to update the output with captured packets
+        function updateOutput(data) {
+            const outputElement = document.getElementById("output");
+            outputElement.innerHTML += data + '\n';
+            outputElement.scrollTop = outputElement.scrollHeight;
+        }
+
+        // Fetch and display images periodically
+        function fetchImages() {
+            fetch('/images')
+                .then(response => response.json())
+                .then(images => {
+                    const gallery = document.getElementById('image-gallery');
+                    gallery.innerHTML = ''; // Clear previous images
+
+                    images.forEach(image => {
+                        const imageCard = document.createElement('div');
+                        imageCard.className = 'image-card';
+                        imageCard.innerHTML = `
+                            <h5>${image.split('/').pop()}</h5>
+                            <img src="${image}" alt="Captured Image" class="img-fluid">
+                        `;
+                        gallery.appendChild(imageCard);
+                    });
+                })
+                .catch(error => console.error("Error fetching images:", error));
+        }
+
+        // Periodically fetch images every 3 seconds
+        setInterval(fetchImages, 3000);
+        fetchImages(); // Initial fetch
+
+        // EventSource for live network data stream
+        const eventSource = new EventSource('/stream');
+        eventSource.onmessage = function(event) {
+            updateOutput(event.data);
+        };
+
+    </script>
+</body>
+</html>
+
