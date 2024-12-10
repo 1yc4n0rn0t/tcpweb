@@ -35,6 +35,9 @@ Before setting up this project, you need to have the following installed on your
    pip install -r requirements.txt 
    python3 app.py or sudo python3 app.py  
 ```
+##### Most likely, you will need to configure the python file to update the network interface to your interface
+
+#### You can also cURL images into the captured_images directory and they will display live on the main web interface, but also can viewed from the subdomain /images/<image.type>
 
 Follow the steps below to set up the project in a virtual environment.
 
