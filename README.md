@@ -7,6 +7,9 @@
 
 ## dump your tcp traffic live in a browser, then download pcap for analyzing
 
+[![Python](https://img.shields.io/badge/python-3670A0?style=Social&logo=python&logoColor=ffdd54)](https://img.shields.io/badge/python-3670A0?style=Social&logo=python&logoColor=ffdd54)
+[![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=Social&logo=html5&logoColor=white)](https://img.shields.io/badge/html5-%23E34F26.svg?style=Social&logo=html5&logoColor=white)
+
 # Network Packet Capture Web Interface
 
 This project provides a web interface to capture and display network traffic using `tcpdump` and Flask. The captured packets can be displayed live in the browser, and the user can download the captured packets as a `.pcap` file for further analysis.
