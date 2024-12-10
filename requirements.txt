@@ -1,6 +1,2 @@
 flask
 flask-cors
-os
-time
-threading
-subprocess
