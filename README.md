@@ -28,10 +28,7 @@ Follow the steps below to set up the project in a virtual environment.
 
 ```
 ├── app.py                # Main Flask web application
-├── index.html            # HTML file for the web interface
-├── static/                # Static files like CSS, JavaScript, and images
-│   ├── css/              
-│   └── js/
-├── templates/             # HTML templates for Flask
+├── templates/
+    ├── index.html              
 ├── requirements.txt       # List of Python dependencies
 └── README.md              # Project documentation```
