@@ -22,6 +22,14 @@ Before setting up this project, you need to have the following installed on your
   
 ### Installation
 
+```
+   sudo apt install python3-pip 
+   sudo apt install python3-virtualenv 
+   python3 -m venv venv 
+   pip install -r requirements.txt 
+   python3 app.py or sudo python3 app.py  
+```
+
 Follow the steps below to set up the project in a virtual environment.
 
 ### Step 1: Clone the Repository
