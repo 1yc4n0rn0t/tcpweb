@@ -3,6 +3,7 @@ import time
 import re
 import os
 import threading
+import requests
 from flask import Flask, Response, render_template, send_file, jsonify
 from flask_cors import CORS
 
@@ -113,8 +114,14 @@ def save_image(image_url):
         if image_url.startswith("http"):
             image_name = os.path.basename(image_url)
 
+            # Ensure it's a valid image extension
             if image_name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp')):
                 image_path = os.path.join(image_dir, image_name)
+
+                # If the image exists already, skip it
+                if os.path.exists(image_path):
+                    print(f"Image {image_name} already captured.")
+                    return
 
                 img_data = requests.get(image_url).content
                 with open(image_path, 'wb') as img_file:
@@ -142,4 +149,3 @@ def serve_image(image_name):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
