@@ -34,6 +34,12 @@ Follow the steps below to set up the project in a virtual environment.
 
 ### Step 1: Clone the Repository
 
+### Step 2 Follow installation method
+
+### Step 3 Run the file 
+
+##### Note - You made need to enter your system password when you run the file, depending on your tcpdump permissions
+
 ```
 ├── app.py                # Main Flask web application
 ├── templates/
