@@ -35,9 +35,15 @@ Before setting up this project, you need to have the following installed on your
    pip install -r requirements.txt 
    python3 app.py or sudo python3 app.py  
 ```
-##### Most likely, you will need to configure the python file to update the network interface to your interface
+##### Most likely, you will need to configure the python file to update the network interface to your interface <line 14> - interface name i.e. eth0
 
-#### You can also cURL images into the captured_images directory and they will display live on the main web interface, but also can viewed from the subdomain /images/<image.type>
+```
+# Set your network interface here
+interface_name = 'enx54b20312dd9c'  # Change this to your interface name (e.g., eth0, enx54b20312dd9c)
+
+```
+
+#### You can also cURL images into the captured_images directory and they will display live on the main web interface, but can be viewed from the subdomain /images/<image.type>
 
 Follow the steps below to set up the project in a virtual environment.
 
