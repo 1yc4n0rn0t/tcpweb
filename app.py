@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)  # Enable cross-origin resource sharing
 
 # Set your network interface here
-interface_name = 'enx54b20312dd9c'  # Change this to your interface name (e.g., eth0, enx54b20312dd9c)
+interface_name = '<interface>'  # Change this to your interface name (e.g., eth0,)
 
 # Directory for storing captured images and pcap files
 image_dir = 'captured_images'
